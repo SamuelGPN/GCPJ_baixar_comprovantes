@@ -9,7 +9,7 @@ import pandas as pd
 
 from selenium.webdriver.common.by import By
 
-from src.GUI_automation import verificar_logo, press_f12, click_setas_dev_tools, click_btn_application, \
+from src.GUI_automation import verificar_menu, press_f12, click_setas_dev_tools, click_btn_application, \
     click_btn_cookies, click_input_filter, escrever, pegar_dados_cookie_value, click_item_cookies, \
     iniciar_webdriver_chrome, input_num_processo, click_atualizacao_andamento_processo, click_btn_pesquisar, \
     selecionar_referencia, input_andamento_processual, click_btn_anexos, entrar_iframe, input_nome_documento, \
@@ -25,7 +25,7 @@ from src.data_output import salvar_planilha
 from src.data_processing import preencher_e_salvar_df_passivo_ativo
 from src.file_handling import create_folder
 from src.reg_log import log_info, log_error
-from src.utils import pegar_text_area_tranferencia
+from src.utils import pegar_text_area_tranferencia, pegar_data_hora
 
 
 def executar_arquivo(caminho, diretorio):
@@ -50,7 +50,7 @@ def executar_arquivo(caminho, diretorio):
 
 
 def pegar_cookies_gcpj(processo):
-    verificar_logo()
+    verificar_menu()
     press_f12()
     click_setas_dev_tools()
     click_btn_application()
@@ -85,7 +85,11 @@ def preparar_arquivos():
     pass
 
 
-def lancar_anexos(cookies, site, caminho_planilha_base_gcpj, caminho_pdfs):
+def lancar_anexos(cookies, site, caminho_pasta_planilha_base_gcpj, caminho_pasta_documentos_gcpj):
+    caminho_planilha_base_gcpj = fr"{caminho_pasta_planilha_base_gcpj}\gcpj_inclusao_{pegar_data_hora()[2]}.xlsx"
+    caminho_pdfs = fr"{caminho_pasta_documentos_gcpj}\{pegar_data_hora()[2]}\PDFs"
+    create_folder(caminho_pdfs)
+
     lista_pdfs = os.listdir(caminho_pdfs)
 
     df = get_df(caminho_planilha_base_gcpj)

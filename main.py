@@ -8,14 +8,10 @@ from src.utils import pegar_data_hora
 
 
 def main():
-    caminho_pdfs = fr"{CAMINHO_PASTA_DOCUMENTOS_GCPJ}\{pegar_data_hora()[2]}\PDFs"
-    caminho_planilha_base_gcpj = fr"{CAMINHO_PASTA_PLANILHA_BASE_GCPJ}\gcpj_inclusao_{pegar_data_hora()[2]}.xlsx"
-
     create_folder(r'.\envs\GCPJ_inclusao')
     create_folder(r'.\logs\GCPJ_Inclusao')
-    create_folder(caminho_pdfs)
 
-    """
+
     if os.path.exists(CAMINHO_CERT):
         log_info('O certificado de Danilo Silva foi encontrado!!')
         if os.path.exists(CAMINHO_ARQ_JAR):
@@ -35,12 +31,12 @@ def main():
     cookies = pegar_cookies_gcpj(processo)
     if cookies is None:
         raise Exception('Não foi encontrado os valores dos cookies... Encerrando o robô.')
-    """
-    cookies = [
-        {'name': 'dtCookie', 'value': f'v_4_srv_70_sn_55A39EB74BCB0D8B8FCE71F38A8356E6_perc_100000_ol_0_mul_1_app-3A004bcf58b40a0c0d_1'},
-        {'name': 'JSESSIONID', 'value': f'0000UPPclMr5IYCmGdfyWharcRQ:1e0r07am8'}
-    ]
-    #lancar_anexos(cookies, URL_GCPJ, caminho_planilha_base_gcpj, caminho_pdfs)
+
+    #cookies = [
+    #    {'name': 'dtCookie', 'value': f'v_4_srv_70_sn_55A39EB74BCB0D8B8FCE71F38A8356E6_perc_100000_ol_0_mul_1_app-3A004bcf58b40a0c0d_1'},
+    #    {'name': 'JSESSIONID', 'value': f'0000UPPclMr5IYCmGdfyWharcRQ:1e0r07am8'}
+    #]
+    #lancar_anexos(cookies, URL_GCPJ, CAMINHO_PASTA_PLANILHA_BASE_GCPJ, CAMINHO_PASTA_DOCUMENTOS_GCPJ)
     baixar_comprovantes(cookies, URL_GCPJ, CAMINHO_PASTA_LOTES_MULTIPAG, CAMINHO_CONCLUIDOS, CAMINHO_PASTA_BAIXADOS_DIVERSOS)
 if __name__ == '__main__':
     main()

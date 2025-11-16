@@ -22,13 +22,13 @@ def escrever(palavra):
     keyboard.send_keys(palavra)
     return
 
-def verificar_logo():
+def verificar_menu(resolucao):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             img = pyautogui.locateOnScreen(
-                r'.\public\menu_principal.png')
+                fr'.\public\{resolucao}\menu_principal.png')
             time.sleep(0.5)
             pywinauto.mouse.click(button='left', coords=((img[0] + 15), (img[1] + 30)))
             time.sleep(1)
@@ -37,18 +37,18 @@ def verificar_logo():
         except Exception as e:
             log_warning(f'Houve um erro na funcão {inspect.currentframe().f_code.co_name}, aguarde...')
             contador += 1
-            time.sleep(0.5)
+            time.sleep(2)
             erro = traceback.format_exc()
 
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
-def click_setas_dev_tools():
+def click_setas_dev_tools(resolucao):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             img = pyautogui.locateOnScreen(
-                r'.\public\setas_dev_tools.png')
+                fr'.\public\{resolucao}\setas_dev_tools.png')
             time.sleep(0.5)
             pywinauto.mouse.click(button='left', coords=((img[0]+25), (img[1])))
             time.sleep(1)
@@ -62,13 +62,13 @@ def click_setas_dev_tools():
 
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
-def click_btn_application():
+def click_btn_application(resolucao):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             img = pyautogui.locateOnScreen(
-                r'.\public\btn_application.png')
+                fr'.\public\{resolucao}\btn_application.png')
             time.sleep(0.5)
             pywinauto.mouse.click(button='left', coords=((img[0]), (img[1])))
             time.sleep(1)
@@ -82,13 +82,13 @@ def click_btn_application():
 
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
-def click_btn_cookies():
+def click_btn_cookies(resolucao):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             img = pyautogui.locateOnScreen(
-                r'.\public\btn_cookies.png')
+                fr'.\public\{resolucao}\btn_cookies.png')
             time.sleep(0.5)
             pywinauto.mouse.double_click(button='left', coords=((img[0]), (img[1]+15)))
             time.sleep(0.5)
@@ -104,14 +104,14 @@ def click_btn_cookies():
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
 
-def click_input_filter(img=None):
+def click_input_filter(resolucao, img=None, ):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             if img is None:
                 img = pyautogui.locateOnScreen(
-                    r'.\public\input_filter.png')
+                    fr'.\public\{resolucao}\input_filter.png')
             time.sleep(0.5)
             pywinauto.mouse.double_click(button='left', coords=((img[0] + 25), (img[1] + 10)))
             time.sleep(0.5)
