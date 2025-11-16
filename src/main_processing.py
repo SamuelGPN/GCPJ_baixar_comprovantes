@@ -167,10 +167,10 @@ def baixar_comprovantes(cookies, site,
                         caminho_concluidos,
                         caminho_pasta_baixados_diversos):
 
-    lotes = [ 13711]
+    lotes = [13711]
     inicio = time.time()  # Marca o tempo inicial;
 
-    browser = iniciar_webdriver_chrome(rf'C:\Users\samuelnogueira\Downloads\LOTES')
+    browser = iniciar_webdriver_chrome(caminho_pasta_baixados_diversos)
     browser.get(site)
 
     browser.delete_all_cookies()
