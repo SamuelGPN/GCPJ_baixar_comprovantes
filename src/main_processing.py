@@ -189,7 +189,21 @@ def baixar_comprovantes(cookies, site,
             raise Exception(msg)
 
     for lote in lotes:
-        df = get_df(fr'{caminho_pasta_lotes_multipag}\{lote} - anexar comprovante\MULTIPAG - 71B - JBM ADVOGADOS - REMESSA {lote} - R$ 000,00 - ID CUSTA..xlsx')
+        nome_pasta_lote = ''
+        lista_pastas_lotes = os.listdir(caminho_pasta_lotes_multipag)
+        for pasta in lista_pastas_lotes:
+            if f'{lote} ' in pasta:
+                nome_pasta_lote = pasta
+                break
+
+        caminho_planilha_lote = ''
+        lista_arquivos_pasta_lote = os.listdir(rf'{caminho_pasta_lotes_multipag}\{nome_pasta_lote}')
+        for arq in lista_arquivos_pasta_lote:
+            if 'ID CUSTA.' in arq:
+                caminho_planilha_lote = rf'{caminho_pasta_lotes_multipag}\{nome_pasta_lote}\{arq}'
+                break
+
+        df = get_df(caminho_planilha_lote)
 
         log_info(f'Lote: {lote}')
 
