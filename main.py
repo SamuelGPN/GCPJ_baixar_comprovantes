@@ -7,7 +7,7 @@ from src.reg_log import log_info, log_error
 from src.utils import pegar_data_hora
 
 
-def main():
+def main(resolucao):
     create_folder(r'.\envs\GCPJ_inclusao')
     create_folder(r'.\logs\GCPJ_Inclusao')
 
@@ -28,7 +28,7 @@ def main():
     processo = executar_arquivo(CAMINHO_ARQ_JAR, CAMINHO_DIR_JAR)
     if processo is None:
         raise Exception('O processo do arquivo (.jar) não foi executado... Encerrando o robô.')
-    cookies = pegar_cookies_gcpj(processo)
+    cookies = pegar_cookies_gcpj(processo, resolucao)
     if cookies is None:
         raise Exception('Não foi encontrado os valores dos cookies... Encerrando o robô.')
 
@@ -39,4 +39,4 @@ def main():
     #lancar_anexos(cookies, URL_GCPJ, CAMINHO_PASTA_PLANILHA_BASE_GCPJ, CAMINHO_PASTA_DOCUMENTOS_GCPJ)
     baixar_comprovantes(cookies, URL_GCPJ, CAMINHO_PASTA_LOTES_MULTIPAG, CAMINHO_CONCLUIDOS, CAMINHO_PASTA_BAIXADOS_DIVERSOS)
 if __name__ == '__main__':
-    main()
+    main('1600X900')

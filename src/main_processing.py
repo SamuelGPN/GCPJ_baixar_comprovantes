@@ -49,21 +49,21 @@ def executar_arquivo(caminho, diretorio):
     return None
 
 
-def pegar_cookies_gcpj(processo):
-    verificar_menu()
+def pegar_cookies_gcpj(processo, resolucao):
+    verificar_menu(resolucao)
     press_f12()
-    click_setas_dev_tools()
-    click_btn_application()
-    click_btn_cookies()
-    img_filter = click_input_filter()
+    click_setas_dev_tools(resolucao)
+    click_btn_application(resolucao)
+    click_btn_cookies(resolucao)
+    img_filter = click_input_filter(resolucao)
     escrever('dtCookie')
     click_item_cookies(img_filter)
-    pegar_dados_cookie_value()
+    pegar_dados_cookie_value(resolucao)
     value_dt_cookie = pegar_text_area_tranferencia()
-    click_input_filter(img_filter)
+    click_input_filter(resolucao, img_filter)
     escrever('JSESSIONID')
     click_item_cookies(img_filter)
-    pegar_dados_cookie_value()
+    pegar_dados_cookie_value(resolucao)
     value_jsessionid = pegar_text_area_tranferencia()
     log_info(f'{value_dt_cookie}, {value_jsessionid}')
     cookies = [
@@ -167,7 +167,7 @@ def baixar_comprovantes(cookies, site,
                         caminho_concluidos,
                         caminho_pasta_baixados_diversos):
 
-    lotes = [ 13717, 13718]
+    lotes = [ 13711]
     inicio = time.time()  # Marca o tempo inicial;
 
     browser = iniciar_webdriver_chrome(rf'C:\Users\samuelnogueira\Downloads\LOTES')

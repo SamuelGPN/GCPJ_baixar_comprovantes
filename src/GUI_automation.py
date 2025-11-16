@@ -27,6 +27,7 @@ def verificar_menu(resolucao):
     contador = 0
     while contador <= 10:
         try:
+            print(fr'.\public\{resolucao}\menu_principal.png')
             img = pyautogui.locateOnScreen(
                 fr'.\public\{resolucao}\menu_principal.png')
             time.sleep(0.5)
@@ -104,7 +105,7 @@ def click_btn_cookies(resolucao):
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
 
-def click_input_filter(resolucao, img=None, ):
+def click_input_filter(resolucao, img=None):
     erro = None
     contador = 0
     while contador <= 10:
@@ -142,13 +143,13 @@ def click_item_cookies(img):
 
     raise Exception(f'Erro na função: {inspect.currentframe().f_code.co_name}.\nTraceback do último erro: {erro}')
 
-def pegar_dados_cookie_value():
+def pegar_dados_cookie_value(resolucao):
     erro = None
     contador = 0
     while contador <= 10:
         try:
             img = pyautogui.locateOnScreen(
-                r'.\public\cookie_values.png')
+                fr'.\public\{resolucao}\cookie_values.png')
             time.sleep(0.5)
             pywinauto.mouse.double_click(button='left', coords=((img[0]+20), (img[1]+30)))
             keyboard.send_keys('^c')
