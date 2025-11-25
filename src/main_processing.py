@@ -121,7 +121,11 @@ def lancar_anexos(cookies, site, caminho_pasta_planilha_base_gcpj, caminho_pasta
     for index, linha in df.iterrows():
         n_gcpj = linha['Número de Controle do Cliente']
         id_custa = linha['ID Custa']
+        status = linha['STATUS']
         log_info(id_custa)
+
+        if not pd.isna(status):
+            continue
 
         if f"{id_custa}.pdf" not in lista_pdfs:
             df_copia.at[index, 'STATUS'] = 'NÃO ENCONTRADA AS INCLUSÕES, VERIFIQUE'
@@ -167,7 +171,7 @@ def baixar_comprovantes(cookies, site,
                         caminho_concluidos,
                         caminho_pasta_baixados_diversos):
 
-    lotes = [13711]
+    lotes = [13728, 13731]
     inicio = time.time()  # Marca o tempo inicial;
 
     browser = iniciar_webdriver_chrome(caminho_pasta_baixados_diversos)
@@ -196,9 +200,10 @@ def baixar_comprovantes(cookies, site,
         nome_pasta_lote = ''
         lista_pastas_lotes = os.listdir(caminho_pasta_lotes_multipag)
         for pasta in lista_pastas_lotes:
-            if f'{lote} ' in pasta:
+            if f'{lote}' in pasta:
                 nome_pasta_lote = pasta
                 break
+        log_info(f'Pasta Lote: {nome_pasta_lote}')
 
         caminho_planilha_lote = ''
         lista_arquivos_pasta_lote = os.listdir(rf'{caminho_pasta_lotes_multipag}\{nome_pasta_lote}')
@@ -206,6 +211,7 @@ def baixar_comprovantes(cookies, site,
             if 'ID CUSTA.' in arq:
                 caminho_planilha_lote = rf'{caminho_pasta_lotes_multipag}\{nome_pasta_lote}\{arq}'
                 break
+        log_info(f'caminho_planilha_lote: {caminho_planilha_lote}')
 
         df = get_df(caminho_planilha_lote)
 
@@ -244,6 +250,7 @@ def baixar_comprovantes(cookies, site,
                          'VALOR', 'CODIGO BARRAS', 'ID SOLICITAÇÃO',
                          'STATUS'])
 
+        print(df)
         for index, linha in df.iterrows():
             try:
                 n_gcpj = linha['Nº               GCPJ']
@@ -301,6 +308,7 @@ def baixar_comprovantes(cookies, site,
                 continue
             time.sleep(1)
 
+
             contador = 0
             while contador < 20: #Verifica se a linha contém data, senão ele pula para a tabela à esquerda.
                 linhas = find_table(browser)
@@ -311,10 +319,12 @@ def baixar_comprovantes(cookies, site,
                 else:
                     break
                 contador += 1
+            else:
+                linhas = find_table(browser)
+                celula_data_text = linhas[2].find_element(By.XPATH, './td[7]').text
 
             #Deleta o último item da lista
             linhas.pop()
-
             for i, tr in enumerate(linhas):
                 if i < 2:
                     continue
@@ -323,8 +333,24 @@ def baixar_comprovantes(cookies, site,
                 click_visualizar_arq(browser)
                 click_x_comprovante(browser)
                 celula_checkbox.click()
+
+            if status == 'False':
+                time.sleep(2)
+                click_btn_uma_seta_esquerda(browser)
+                time.sleep(2)
+                linhas = find_table(browser)
+                linhas.pop()
+                for i, tr in enumerate(linhas):
+                    if i < 2:
+                        continue
+                    celula_checkbox = tr.find_element(By.XPATH, './td[1]/input')
+                    celula_checkbox.click()
+                    click_visualizar_arq(browser)
+                    click_x_comprovante(browser)
+                    celula_checkbox.click()
             click_btn_voltar(browser)
             time.sleep(2)
+
             encontrar_pdf_com_cod_barras = procurar_cod_barras_em_pdf(caminho_pasta_baixados_diversos,
                                                                       caminho_comprovantes_ok, cod_barras, n_gcpj,
                                                                       id_custa, valor)
@@ -343,8 +369,8 @@ def baixar_comprovantes(cookies, site,
                 status_df.at[index, 'STATUS'] = 'False'
                 salvar_planilha(status_df, caminho_planilha_status)
 
-
-
+        log_info(f'Lote: {lote} finalizado...')
+        log_info('*'*50)
 
     fim = time.time()  # Marca o tempo final
     print(f"Tempo de execução: {fim - inicio:.4f} segundos")
