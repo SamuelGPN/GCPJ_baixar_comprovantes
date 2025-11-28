@@ -72,9 +72,9 @@ def input_num_processo_comprovante(browser, n_processo):
 def click_btn_pesquisar_comprovante(browser):
     erro = None
     contador = 0
-    while contador < 40:
+    while contador < 15:
         try:
-            browser.implicitly_wait(30)
+            browser.implicitly_wait(1)
             elemento = browser.find_element(By.XPATH, '/html/body/form/table/tbody/tr[2]/td[2]/table/tbody/tr/td[2]/input[2]')
             time.sleep(1)
             elemento.click()

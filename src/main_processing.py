@@ -171,7 +171,7 @@ def baixar_comprovantes(cookies, site,
                         caminho_concluidos,
                         caminho_pasta_baixados_diversos):
 
-    lotes = [13728, 13731]
+    lotes = [13736, 13737, 13738, 13739]
     inicio = time.time()  # Marca o tempo inicial;
 
     browser = iniciar_webdriver_chrome(caminho_pasta_baixados_diversos)

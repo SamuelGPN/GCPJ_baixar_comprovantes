@@ -25,7 +25,7 @@ def escrever(palavra):
 def verificar_menu(resolucao):
     erro = None
     contador = 0
-    while contador <= 10:
+    while contador <= 15:
         try:
             print(fr'.\public\{resolucao}\menu_principal.png')
             img = pyautogui.locateOnScreen(
