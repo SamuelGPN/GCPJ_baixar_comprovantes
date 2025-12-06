@@ -19,7 +19,6 @@ from src.baixar_comprovantes.GUI_automation import verif_incluir_anexo, click_in
     input_num_processo_comprovante, click_btn_duas_setas_direita, click_btn_pesquisar_comprovante, find_table, \
     click_visualizar_arq, click_btn_voltar, click_x_comprovante, click_btn_uma_seta_esquerda
 from src.baixar_comprovantes.file_handling import remover_arquivos_olds, procurar_cod_barras_em_pdf
-from src.config import URL_GCPJ, CAMINHO_PASTA_BAIXADOS_DIVERSOS
 from src.data_input import get_df
 from src.data_output import salvar_planilha
 from src.data_processing import preencher_e_salvar_df_passivo_ativo
@@ -166,12 +165,12 @@ def lancar_anexos(cookies, site, caminho_pasta_planilha_base_gcpj, caminho_pasta
         entrar_iframe(browser, '/html/frameset/frame[3]')
         time.sleep(3)
 
-def baixar_comprovantes(cookies, site,
+def baixar_comprovantes(lotes, cookies, site,
                         caminho_pasta_lotes_multipag,
                         caminho_concluidos,
                         caminho_pasta_baixados_diversos):
 
-    lotes = [13736, 13737, 13738, 13739]
+    #lotes = [13736, 13737, 13738, 13739]
     inicio = time.time()  # Marca o tempo inicial;
 
     browser = iniciar_webdriver_chrome(caminho_pasta_baixados_diversos)

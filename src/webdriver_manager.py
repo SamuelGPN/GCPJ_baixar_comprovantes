@@ -1,6 +1,7 @@
 # webdriver_manager.py
 from selenium import webdriver
 from selenium.webdriver import FirefoxProfile
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.firefox.options import Options as OptionsMozilla
 from selenium.webdriver.chrome.options import Options as OptionsChrome
 from src.reg_log import log_error
@@ -18,6 +19,8 @@ class DriverManagerChrome:
     def iniciar(self, download_dir):
         if self.driver is None:
             options = OptionsChrome()
+            chromedriver_path = rf'.\webdrivers\chromedriver.exe'
+            service = Service(chromedriver_path)
             prefs = {
                 "download.default_directory": download_dir,  # pasta de destino
                 "download.prompt_for_download": False,  # não perguntar onde salvar
@@ -26,7 +29,7 @@ class DriverManagerChrome:
             }
             options.add_experimental_option("prefs", prefs)
             options.add_argument("--start-maximized")
-            self.driver = webdriver.Chrome(options=options)
+            self.driver = webdriver.Chrome(options=options, service=service)
         return self.driver
 
     def get_driver(self):
