@@ -9,8 +9,9 @@ def pegar_data_hora():
     hora_min_seg = time.strftime("%H%M%S", time.localtime())
     hora = time.strftime("%H", time.localtime())
     dataehora2 = time.strftime("%d_%m_%Y__%H%M%S", time.localtime())
+    ano = time.strftime("%Y", time.localtime())
 
-    dataehora_list = [data, dataehora, data_formatada, data_formatada2, hora_min_seg, hora, dataehora2]
+    dataehora_list = [data, dataehora, data_formatada, data_formatada2, hora_min_seg, hora, dataehora2, ano]
     return dataehora_list
 
 def pegar_text_area_tranferencia():
