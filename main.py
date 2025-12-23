@@ -11,7 +11,7 @@ def main(caminho_concluidos, lotes, dt_cookie=None, jsession_id=None, resolucao=
     if int(pegar_data_hora()[7]) < 2026:
         create_folder(r'.\envs\GCPJ_inclusao')
         create_folder(r'.\logs\GCPJ_Inclusao')
-        create_folder(r'.\COMPROVANTES')
+        create_folder(CAMINHO_PASTA_BAIXADOS_DIVERSOS)
 
         if resolucao:
             if os.path.exists(CAMINHO_CERT):
@@ -49,7 +49,7 @@ def main(caminho_concluidos, lotes, dt_cookie=None, jsession_id=None, resolucao=
 
         for _ in range(2):
             baixar_comprovantes(lotes, cookies, URL_GCPJ, CAMINHO_PASTA_LOTES_MULTIPAG,
-                                caminho_concluidos, r'.\COMPROVANTES')
+                                caminho_concluidos, CAMINHO_PASTA_BAIXADOS_DIVERSOS)
     else:
         raise Exception('Versão expirada, contate o ADM.')
 if __name__ == '__main__':

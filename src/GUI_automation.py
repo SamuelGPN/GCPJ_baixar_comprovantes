@@ -165,7 +165,7 @@ def pegar_dados_cookie_value(resolucao):
 
 
 ###############Selenium################
-def iniciar_webdriver_chrome(download_dir=r'C:\Users\samuelnogueira\Downloads'):
+def iniciar_webdriver_chrome(download_dir=r'C:\Users\brunabercheor\Downloads\LOTES'):
     erro = ''
     contador = 0
     while contador < 20:

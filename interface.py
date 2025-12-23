@@ -35,7 +35,7 @@ def iniciar():
         info_label.config(text=f'{e}')
 
 root = Tk()
-root.title('Baixar_comprovante_BS')
+root.title('Baixar_comprovante_GCPJ')
 mensagem = StringVar()
 
 frame1 = ttk.Frame(root, padding="3 3 12 12")
